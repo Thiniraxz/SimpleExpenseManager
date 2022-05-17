@@ -30,12 +30,11 @@ public class SQLiteTransactionDAO extends DBHandler implements TransactionDAO {
     public void logTransaction(Date date, String accountNo, ExpenseType expenseType, double amount) {
         SQLiteDatabase sqLiteDatabase=this.getWritableDatabase();
         ContentValues cv=new ContentValues();
-        String transDate=new SimpleDateFormat("dd-mm-yyyy").format(date);
+        String transDate=new SimpleDateFormat("dd-MM-yyyy").format(date);
         cv.put("date",transDate);
         cv.put("accountNo",accountNo);
         cv.put("type",String.valueOf(expenseType));
         cv.put("amount",amount);
-
         sqLiteDatabase.insert(transactions,null,cv);
     }
 
@@ -52,7 +51,7 @@ public class SQLiteTransactionDAO extends DBHandler implements TransactionDAO {
                 String startdate = cursor.getString(1);
                 Date strdate= null;
                 try {
-                    strdate = new SimpleDateFormat("dd-mm-yyyy").parse(startdate);
+                    strdate = new SimpleDateFormat("dd-MM-yyyy").parse(startdate);
                     String accountNo = cursor.getString(2);
 
                     String type = cursor.getString(3);
@@ -70,7 +69,6 @@ public class SQLiteTransactionDAO extends DBHandler implements TransactionDAO {
         cursor.close();
         db.close();
         return transactionList;
-
 
     }
 
